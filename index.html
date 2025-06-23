@@ -1,32 +1,88 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Multi-Cloud Demo</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🌐 Multi-Cloud App</title>
   <style>
-    body { font-family: Arial; text-align: center; margin-top: 100px; }
-    input, button { padding: 10px; font-size: 16px; }
-    #response { margin-top: 20px; font-weight: bold; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+
+    input[type="text"] {
+      padding: 0.6rem;
+      width: 90%;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+
+    button {
+      padding: 0.6rem 1.2rem;
+      background-color: #0078d4;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #005fa3;
+    }
+
+    #response {
+      margin-top: 1rem;
+      font-weight: bold;
+      color: #0078d4;
+    }
   </style>
 </head>
 <body>
-  <h1>🌐 Multi-Cloud App</h1>
-  <p>Azure Frontend calling AWS Lambda</p>
-  <input type="text" id="nameInput" placeholder="Enter your name" />
-  <button onclick="callLambda()">Submit</button>
-  <div id="response"></div>
+  <div class="container">
+    <h1>🌐 Multi-Cloud App</h1>
+    <input type="text" id="name" placeholder="Enter your name"/>
+    <br />
+    <button onclick="callLambda()">Submit</button>
+    <p id="response"></p>
+  </div>
 
   <script>
-    async function callLambda() {
-      const name = document.getElementById('nameInput').value;
-      const responseDiv = document.getElementById('response');
-      
-      try {
-        const res = await fetch(`https://fi26e199nf.execute-api.eu-north-1.amazonaws.com/default/HelloLambdaFunction`);
-        const text = await res.text();
-        responseDiv.innerText = text;
-      } catch (err) {
-        responseDiv.innerText = "Error: " + err;
-      }
+    function callLambda() {
+      const name = document.getElementById("name").value;
+      const url = `https://fi26e199nf.execute-api.eu-north-1.amazonaws.com/default/HelloLambdaFunction?name=${encodeURIComponent(name)}`;
+
+      fetch(url)
+        .then(res => res.text())
+        .then(data => {
+          document.getElementById("response").innerText = data;
+        })
+        .catch(err => {
+          document.getElementById("response").innerText = "Error: " + err.message;
+        });
     }
   </script>
 </body>
