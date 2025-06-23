@@ -2,34 +2,31 @@
 <html>
 <head>
   <title>Multi-Cloud Demo</title>
+  <style>
+    body { font-family: Arial; text-align: center; margin-top: 100px; }
+    input, button { padding: 10px; font-size: 16px; }
+    #response { margin-top: 20px; font-weight: bold; }
+  </style>
 </head>
 <body>
-  <h2>🌐 Multi-Cloud App: Azure + AWS</h2>
-  <p><strong>Frontend:</strong> Azure Static Web App</p>
-  <p><strong>Backend:</strong> AWS Lambda (API Gateway)</p>
-
-  <form onsubmit="callAPI(); return false;">
-    <label>Enter Your Name:</label>
-    <input type="text" id="name" required />
-    <button type="submit">Send</button>
-  </form>
-
-  <p><strong>Response:</strong> <span id="result"></span></p>
+  <h1>🌐 Multi-Cloud App</h1>
+  <p>Azure Frontend calling AWS Lambda</p>
+  <input type="text" id="nameInput" placeholder="Enter your name" />
+  <button onclick="callLambda()">Submit</button>
+  <div id="response"></div>
 
   <script>
-    function callAPI() {
-      const name = document.getElementById("name").value;
-      const apiURL = "https://YOUR_API_GATEWAY_URL/hello?name=" + encodeURIComponent(name);
-
-      fetch(apiURL)
-        .then(res => res.json())
-        .then(data => {
-          document.getElementById("result").innerText = data.message;
-        })
-        .catch(err => {
-          document.getElementById("result").innerText = "Error contacting AWS Lambda";
-          console.error(err);
-        });
+    async function callLambda() {
+      const name = document.getElementById('nameInput').value;
+      const responseDiv = document.getElementById('response');
+      
+      try {
+        const res = await fetch(`https://fi26e199nf.execute-api.eu-north-1.amazonaws.com/default/HelloLambdaFunction`);
+        const text = await res.text();
+        responseDiv.innerText = text;
+      } catch (err) {
+        responseDiv.innerText = "Error: " + err;
+      }
     }
   </script>
 </body>
