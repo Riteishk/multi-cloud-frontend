@@ -1,43 +1,58 @@
-# 🌐 Multi-Cloud Web App (Azure Frontend + AWS Backend)
+# 🌐 Multi-Cloud Application – Azure + AWS 🚀
 
-A simple web application showcasing multi-cloud architecture and interoperability.  
-Frontend is hosted on **Azure Static Web App**, and backend is powered by **AWS Lambda via API Gateway**.
-
----
-
-## 🎯 Objective
-
-To demonstrate communication between two cloud platforms (Azure and AWS) using a client-server architecture:
-- Azure Static Web App serves the frontend
-- AWS Lambda function handles the backend logic
-- Communication is done over HTTP using fetch API
+This project demonstrates **interoperability between two cloud platforms**:  
+Frontend hosted on **Azure Static Web App**, backend handled by **AWS Lambda** via **API Gateway**.
 
 ---
 
-## 🧱 Tech Stack
+## 📌 Objective
 
-| Layer       | Technology                    |
-|-------------|-------------------------------|
-| Frontend    | HTML, JS (Azure Static Web App) |
-| Backend     | AWS Lambda (Python) + API Gateway |
-| DevOps      | GitHub + Azure + AWS Console   |
+To showcase cross-cloud integration using:
+- 🟦 **Azure Static Web App** for frontend hosting
+- 🟨 **AWS Lambda + API Gateway** for serverless backend
 
 ---
 
-## 🧪 How It Works
+## 🛠 Tech Stack
 
-1. User enters their name in a form
-2. Azure-hosted HTML page sends a GET request to AWS API
-3. AWS Lambda returns a personalized response
-4. Response displayed on the frontend
+| Layer     | Service Used                         |
+|-----------|--------------------------------------|
+| Frontend  | Azure Static Web App (HTML, JS)      |
+| Backend   | AWS Lambda (Python) via API Gateway  |
+| Communication | HTTP GET Request (Fetch API)     |
 
 ---
 
-## 💻 Live Demo
+## 🔁 Flow Diagram
+[ User ] → [ Azure Static Web App (HTML Form) ]
+↓ HTTP GET
+[ AWS API Gateway → Lambda ]
+↓
+Hello Guest, from AWS Lambda!
+---
 
-🌐 [Click to Open Static Web App](https://your-azure-url-here)
+## 🌍 Live Demo
 
-*(replace with your actual Azure site URL)*
+🔗 [Click here to open live app](https://white-pebble-03e8c8310.2.azurestaticapps.net/)
+
+---
+
+## 💻 Lambda Code (Python)
+
+```python
+def lambda_handler(event, context):
+    name = event.get('queryStringParameters', {}).get('name', 'Guest')
+    return {
+        'statusCode': 200,
+        'headers': {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        },
+        'body': f'Hello {name}, from AWS Lambda!'
+    }//your-azure-url-here)
+```
+*(https://white-pebble-03e8c8310.2.azurestaticapps.net/)*
+
 
 ---
 
@@ -51,5 +66,11 @@ To demonstrate communication between two cloud platforms (Azure and AWS) using a
 
 ---
 
-## 📂 Folder Structure
+✅ Outcome
+Successfully implemented a multi-cloud interoperable application using:
+Azure Static Web App (hosting)
+AWS Lambda (backend logic)
+API Gateway (communication bridge)
+This setup demonstrates real-world cloud integration across platforms.
 
+---
