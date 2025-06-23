@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Multi-Cloud Demo</title>
+</head>
+<body>
+  <h2>🌐 Multi-Cloud App: Azure + AWS</h2>
+  <p><strong>Frontend:</strong> Azure Static Web App</p>
+  <p><strong>Backend:</strong> AWS Lambda (API Gateway)</p>
+
+  <form onsubmit="callAPI(); return false;">
+    <label>Enter Your Name:</label>
+    <input type="text" id="name" required />
+    <button type="submit">Send</button>
+  </form>
+
+  <p><strong>Response:</strong> <span id="result"></span></p>
+
+  <script>
+    function callAPI() {
+      const name = document.getElementById("name").value;
+      const apiURL = "https://YOUR_API_GATEWAY_URL/hello?name=" + encodeURIComponent(name);
+
+      fetch(apiURL)
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById("result").innerText = data.message;
+        })
+        .catch(err => {
+          document.getElementById("result").innerText = "Error contacting AWS Lambda";
+          console.error(err);
+        });
+    }
+  </script>
+</body>
+</html>
